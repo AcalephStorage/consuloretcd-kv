@@ -2,7 +2,7 @@ package main
 
 import (
     "os"
-    "codegangsta/cli"
+    "github.com/codegangsta/cli"
     "github.com/ashcrow/consuloretcd"
     "github.com/TelanJ/consul-kv-ceph/command"
     "net/http"
