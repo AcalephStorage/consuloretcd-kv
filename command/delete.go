@@ -15,19 +15,54 @@ func NewDeleteCommand() cli.Command {
 		Usage: "delete a key",
 		Flags: []cli.Flag{
 			cli.BoolFlag{
-				Name:   "recursive, r",
-				Usage:  "resursively delete keys",
+				Name:   "consul, c",
+				Usage:  "use consul",
+				EnvVar: "",
+			},
+			cli.BoolFlag{
+				Name:   "etcd, e",
+				Usage:  "use etcd",
 				EnvVar: "",
 			},
 		},
 		Action: func(c *cli.Context) {
-			rawhandle(c, deleteCommandFunc)
+			if c.Bool("consul") == true {
+				deleteCommandFuncConsul(c *cli.Context)
+			}
+			if c.Bool("etcd") == true {
+				deleteCommandFuncEtcd(c *cli.Context)
+			}
+			
 		},
 	}
 }
 
-func deleteCommandFunc(c *cli.Context, client *consuloretcd.Client) {
-	var err error
+func deleteCommandFuncConsul(c *cli.Context) {
+
+	clientone := http.Client{}
+	client, _ := consuloretcd.NewClient("consul",
+	consuloretcd.Config{
+            Endpoint: "http://127.0.0.1",
+            Client: clientone,
+            Port: 8500})
+
+	if len(c.Args()) == 0 {
+		fmt.Fprintln(os.Stderr, "Error: Key required")
+		os.Exit(1)
+	}
+
+	key := c.Args()[0]
+	client.DeleteKey(key)
+}
+
+func deleteCommandFuncEtcd(c *cli.Context) {
+
+	clientone := http.Client{}
+	client, _ := consuloretcd.NewClient("etcd",
+	consuloretcd.Config{
+            Endpoint: "http://127.0.0.1",
+            Client: clientone,
+            Port: 8500})
 
 	if len(c.Args()) == 0 {
 		fmt.Fprintln(os.Stderr, "Error: Key required")
