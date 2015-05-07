@@ -3,12 +3,9 @@ package main
 import (
     "os"
     "github.com/codegangsta/cli"
-    "github.com/ashcrow/consuloretcd"
     "github.com/TelanJ/consul-kv-ceph/command"
-    "net/http"
 )
 
-// Example
 func main() {
     app := cli.NewApp()
     app.Name = "consuloretcd"
@@ -25,4 +22,3 @@ func main() {
     app.Run(os.Args)
 
 }
-
