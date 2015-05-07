@@ -5,8 +5,6 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
-	"github.com/ashcrow/consuloretcd"
-	"net/http"
 )
 
 
@@ -28,22 +26,7 @@ func NewPutCommand() cli.Command {
 			},
 		},
 		Action: func(c *cli.Context) {
-			var client consuloretcd.KeyValueStore
-			clientone := http.Client{}
-			if c.Bool("consul") == true {
-				client, _ = consuloretcd.NewClient("consul",
-				consuloretcd.Config{
-            		Endpoint: "http://127.0.0.1",
-            		Client: clientone,
-            		Port: 8500})
-			}
-			if c.Bool("etcd") == true {
-				client, _ = consuloretcd.NewClient("etcd",
-				consuloretcd.Config{
-            		Endpoint: "http://127.0.0.1",
-            		Client: clientone,
-            		Port: 8500})
-			}
+			client, _ := makeClient(c)
 		
 			if len(c.Args()) == 0 {
 			fmt.Fprintln(os.Stderr, "Error: Key required")
