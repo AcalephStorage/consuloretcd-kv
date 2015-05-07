@@ -27,23 +27,23 @@ func NewGetCommand() cli.Command {
 			},
 		},
 		Action: func(c *cli.Context) {
-//			var client interface{}
+			var client consuloretcd.KeyValueStore
 			clientone := http.Client{}
-//			if c.Bool("consul"){
-				client, _ := consuloretcd.NewClient("consul",
-				consuloretcd.Config{
-            		Endpoint: "http://127.0.0.1",
-            		Client: clientone,
-            		Port: 8500})
-//			}
-/*			if c.Bool("etcd") == true {
-				client, _ := consuloretcd.NewClient("etcd",
+			if c.Bool("consul"){
+				client, _ = consuloretcd.NewClient("consul",
 				consuloretcd.Config{
             		Endpoint: "http://127.0.0.1",
             		Client: clientone,
             		Port: 8500})
 			}
-*/			if len(c.Args()) == 0 {
+			if c.Bool("etcd") == true {
+				client, _ = consuloretcd.NewClient("etcd",
+				consuloretcd.Config{
+            		Endpoint: "http://127.0.0.1",
+            		Client: clientone,
+            		Port: 8500})
+			}
+			if len(c.Args()) == 0 {
 				fmt.Fprintln(os.Stderr, "Error: Key required")
 				os.Exit(1)
 			}
