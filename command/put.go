@@ -7,8 +7,6 @@ import (
 	"github.com/codegangsta/cli"
 )
 
-
-
 func NewPutCommand() cli.Command {
 	return cli.Command{
 		Name:  "put",
@@ -27,10 +25,10 @@ func NewPutCommand() cli.Command {
 		},
 		Action: func(c *cli.Context) {
 			client, _ := makeClient(c)
-		
+
 			if len(c.Args()) == 0 {
-			fmt.Fprintln(os.Stderr, "Error: Key required")
-			os.Exit(1)
+				fmt.Fprintln(os.Stderr, "Error: Key required")
+				os.Exit(1)
 			}
 			key := c.Args()[0]
 
@@ -39,7 +37,7 @@ func NewPutCommand() cli.Command {
 				os.Exit(1)
 			}
 			value := c.Args()[1]
-			client.PutKey(key,value)
+			client.PutKey(key, value)
 		},
 	}
 }
