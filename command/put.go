@@ -6,6 +6,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/ashcrow/consuloretcd"
+	"net/http"
 )
 
 
@@ -27,64 +28,36 @@ func NewPutCommand() cli.Command {
 			},
 		},
 		Action: func(c *cli.Context) {
+			var client interface{}
+			clientone := http.Client{}
 			if c.Bool("consul") == true {
-				putCommandFuncConsul(c *cli.Context)
+				client, _ := consuloretcd.NewClient("consul",
+				consuloretcd.Config{
+            		Endpoint: "http://127.0.0.1",
+            		Client: clientone,
+            		Port: 8500})
 			}
 			if c.Bool("etcd") == true {
-				putCommandFuncEtcd(c *cli.Context)
+				client, _ := consuloretcd.NewClient("etcd",
+				consuloretcd.Config{
+            		Endpoint: "http://127.0.0.1",
+            		Client: clientone,
+            		Port: 8500})
 			}
+			
+			if len(c.Args()) == 0 {
+			fmt.Fprintln(os.Stderr, "Error: Key required")
+			os.Exit(1)
+			}
+			key := c.Args()[0]
+
+			if len(c.Args()) < 2 {
+				fmt.Fprintln(os.Stderr, "Error: Value required")
+				os.Exit(1)
+			}
+			value := c.Args()[1]
+
+			cp, _ := client.PutKey("key","value")
 		},
 	}
-}
-
-func putCommandFuncConsul(c *cli.Context, client *consuloretcd.Client) {
-
-	clientone := http.Client{}
-	client, _ := consuloretcd.NewClient("consul",
-	consuloretcd.Config{
-            Endpoint: "http://127.0.0.1",
-            Client: clientone,
-            Port: 8500})
-
-	if len(c.Args()) == 0 {
-		fmt.Fprintln(os.Stderr, "Error: Key required")
-		os.Exit(1)
-	}
-	key := c.Args()[0]
-
-	if len(c.Args()) < 2 {
-		fmt.Fprintln(os.Stderr, "Error: Value required")
-		os.Exit(1)
-	}
-	value := c.Args()[1]
-
-	cp, _ := client.PutKey("key","value")
-	println("Added ",cp.key," ",cp.value)
-
-}
-
-func putCommandFuncEtcd(c *cli.Context, client *consuloretcd.Client) {
-
-	clientone := http.Client{}
-	client, _ := consuloretcd.NewClient("etcd",
-	consuloretcd.Config{
-            Endpoint: "http://127.0.0.1",
-            Client: clientone,
-            Port: 8500})
-
-	if len(c.Args()) == 0 {
-		fmt.Fprintln(os.Stderr, "Error: Key required")
-		os.Exit(1)
-	}
-	key := c.Args()[0]
-
-	if len(c.Args()) < 2 {
-		fmt.Fprintln(os.Stderr, "Error: Value required")
-		os.Exit(1)
-	}
-	value := c.Args()[1]
-
-	cp, _ := client.PutKey("key","value")
-	println("Added ",cp.key," ",cp.value)
-
 }

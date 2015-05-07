@@ -6,6 +6,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/ashcrow/consuloretcd"
+	"net/http"
 )
 
 func NewGetCommand() cli.Command {
@@ -25,49 +26,30 @@ func NewGetCommand() cli.Command {
 			},
 		},
 		Action: func(c *cli.Context) {
+			var client interface{}
+			clientone := http.Client{}
 			if c.Bool("consul") == true {
-				getCommandFuncConsul(c *cli.Context)
+				client, _ := consuloretcd.NewClient("consul",
+				consuloretcd.Config{
+            		Endpoint: "http://127.0.0.1",
+            		Client: clientone,
+            		Port: 8500})
 			}
 			if c.Bool("etcd") == true {
-				getCommandFuncEtcd(c *cli.Context)
+				client, _ := consuloretcd.NewClient("etcd",
+				consuloretcd.Config{
+            		Endpoint: "http://127.0.0.1",
+            		Client: clientone,
+            		Port: 8500})
 			}
+			if len(c.Args()) == 0 {
+				fmt.Fprintln(os.Stderr, "Error: Key required")
+				os.Exit(1)
+			}
+
+			key := c.Args()[0]
+
+			cc, _ := client.GetKey(key)
 		},
 	}
-}
-
-func getCommandFuncConsul(c *cli.Context, client *consuloretcd.Client) {
-
-	clientone := http.Client{}
-	client, _ := consuloretcd.NewClient("consul",
-	consuloretcd.Config{
-            Endpoint: "http://127.0.0.1",
-            Client: clientone,
-            Port: 8500})
-	if len(c.Args()) == 0 {
-		fmt.Fprintln(os.Stderr, "Error: Key required")
-		os.Exit(1)
-	}
-
-	key := c.Args()[0]
-
-	cc, _ := client.GetKey(key)
-	println(cc.value)
-}
-
-func getCommandFuncEtcd(c *cli.Context, client *consuloretcd.Client) {
-	clientone := http.Client{}
-	client, _ := consuloretcd.NewClient("etcd",
-	consuloretcd.Config{
-            Endpoint: "http://127.0.0.1",
-            Client: clientone,
-            Port: 8500})
-	if len(c.Args()) == 0 {
-		fmt.Fprintln(os.Stderr, "Error: Key required")
-		os.Exit(1)
-	}
-
-	key := c.Args()[0]
-
-	cc, _ := client.GetKey(key)
-	println(cc.value)
 }
