@@ -7,7 +7,6 @@ import (
 	"github.com/codegangsta/cli"
 )
 
-
 func NewGetCommand() cli.Command {
 	return cli.Command{
 		Name:  "get",
