@@ -1,6 +1,6 @@
 # consul-kv-ceph
 
-A simple CLI program that connects to consul or etcd KV store
+A simple CLI program that connects to consul or etcd KV store based on `https://github.com/ashcrow/consuloretcd` and `https://github.com/JeanMertz/consulctl`
 
 
 Usage:
