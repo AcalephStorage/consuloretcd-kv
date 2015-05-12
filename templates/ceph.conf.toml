@@ -4,15 +4,15 @@ dest = "/etc/ceph/ceph.conf"
 owner = "vagrant"
 mode = "0644"
 keys = [
-	"mon_host/"
-	"common/"
-	"mon/"
-	"osd/"
-	"crush/"
-	"backend/"
-	"perf/"
-	"rec/"
-	"ports/"
-	"rbd"
+	"mon_host/",
+	"common/",
+	"mon/",
+	"osd/",
+	"crush/",
+	"backend/",
+	"perf/",
+	"rec/",
+	"ports/",
+	"rbd",
 	"other"
 ]
