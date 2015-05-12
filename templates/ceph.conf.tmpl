@@ -1,7 +1,7 @@
 # Created and Maintained by Confd
 
 [global]
-{{ if  getv "common/cephx" == true}}
+{{ if exists "common/cephx"}}
   auth cluster required = cephx
   auth service required = cephx
   auth client required = cephx
@@ -40,12 +40,7 @@
   osd mkfs options xfs = {{getv "osd/osd_mkfs_options_xfs"}}
   osd mount options xfs = {{getv "osd/osd_mount_options_xfs"}}
   osd journal size = {{getv "osd/journal_size"}}
-{{if getv "osd/osd_mkfs_type" == "ext4" }}
-  filestore xattr use omap = true
-{{end}}
-{{if getv "osd/osd_mkfs_type" == "xfs" }}
   filestore journal writeahead = true
-{{end}}
   cluster_network = {{getv "osd/cluster_network"}}
   public_network = {{getv "osd/public_network"}}
   osd mon heartbeat interval = {{getv "osd/osd_mon_heartbeat_interval"}}
@@ -73,7 +68,7 @@
 admin socket = /var/run/ceph/$cluster-$type.$id.$pid.$cctid.asok
 
 
-{{if getv "other/mds" == true}}
+{{if exists "other/mds"}}
 [mds]
 {{range getvs "mds_host"}}
   [mds.{{$data := json .Key}}]
