@@ -17,6 +17,7 @@ func main() {
 		command.NewGetCommand(),
 		command.NewPutCommand(),
 		command.NewDeleteCommand(),
+		command.NewCASCommand(),
 	}
 
 	app.Run(os.Args)
