@@ -24,7 +24,6 @@ func NewCASCommand() cli.Command {
 		},
 		Action: func(c *cli.Context) {
 			client, _ := makeClient(c)
-			var cc consuloretcd.KeyValue{}
 
 			if len(c.Args()) == 0 {
 				fmt.Fprintln(os.Stderr, "Error: Key required")
@@ -37,8 +36,9 @@ func NewCASCommand() cli.Command {
 				os.Exit(1)
 			}
 			value := c.Args()[1]
-			cc = client.GetKey(key)
-			if (cc.Exists == False){
+			y := key
+			cc, _ := client.GetKey(y)
+			if cc.Exists == false {
 			client.PutKey(key, value)
 			}
 		},
