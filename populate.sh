@@ -1,6 +1,15 @@
 #!/bin/bash
 #populate the KV store with ceph.conf parameters
 
+
+#mon hosts
+#monitor
+consuloretcd put -c mon_host/host1 192.168.42.20:6789
+consuloretcd put -c mon_host/host2 192.168.42.21:6789
+consuloretcd put -c mon_host/host3 192.168.42.22:6789
+consuloretcd put -c mon_host/host4 192.168.42.23:6789
+consuloretcd put -c mon_host/host5 192.168.42.24:6789
+
 #ceph-common
 consuloretcd put -c common/fsid 4a158d27-f750-41d5-9e7f-26ce4c9d2d45
 consuloretcd put -c common/cephx true
@@ -69,4 +78,5 @@ consuloretcd put -c rbd/rbd_cache_writethrough_until_flush true
 consuloretcd put -c other/use_inktank_ceph_repo true
 consuloretcd put -c other/iscsi_support false
 consuloretcd put -c other/ceph_reduced_log_verbosity false
-consuloretcd put -c other/radosgw
+consuloretcd put -c other/radosgw false
+consuloretcd put -c other/mds false
