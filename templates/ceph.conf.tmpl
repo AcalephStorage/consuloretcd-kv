@@ -28,13 +28,12 @@
 [mon]
   mon osd down out interval = {{getv "/mon/mon_osd_down_out_interval"}}
   mon osd min down reporters = {{getv "/mon/mon_osd_min_down_reporters"}}
-{{range getvs "mon_host/*"}}
-    [mon.{{$data := json .Key}}]
-      host = {{$data}}
-      mon addr = {{{{$data := json .Value}}}}
+{{range getvs "/mon_host/*"}}
+{{$data := split (.Key) "/"}}
+    [mon.{{index $data 2}}]
+      host = {{index $data 2}}
+      mon addr = {{.Value}}
 {{end}}
-
-
 [osd]
   osd mkfs type = {{getv "/osd/osd_mkfs_type"}}
   osd mkfs options xfs = {{getv "/osd/osd_mkfs_options_xfs"}}
