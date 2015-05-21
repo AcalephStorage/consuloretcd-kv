@@ -11,12 +11,12 @@ import (
 func makeClient(c *cli.Context) (consuloretcd.KeyValueStore, error) {
 	//var client consuloretcd.KeyValueStore
 	clientone := http.Client{}
-
+	Address := c.GlobalString("address")
 	if c.Bool("consul") == true {
 		return consuloretcd.NewClient(
 			"consul",
 			consuloretcd.Config{
-				Endpoint: "http://127.0.0.1",
+				Endpoint: Address,
 				Client:   clientone,
 				Port:     8500,
 			})
@@ -25,7 +25,7 @@ func makeClient(c *cli.Context) (consuloretcd.KeyValueStore, error) {
 		return consuloretcd.NewClient(
 			"etcd",
 			consuloretcd.Config{
-				Endpoint: "http://127.0.0.1",
+				Endpoint: Address,
 				Client:   clientone,
 				Port:     8500,
 			})

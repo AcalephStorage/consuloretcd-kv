@@ -13,6 +13,14 @@ func main() {
 	app.Author = "Julio Telan"
 	app.Email = "telanj@acale.ph"
 	app.Usage = "A simple command line client for Consul/etcd k/v store."
+	app.Flags = []cli.Flag{
+		cli.StringFlag{
+			Name:   "address, A",
+			Value: "192.168.200.90",
+			Usage:  "the remote endpoint for the cluster",
+			EnvVar: "CONSULORETCD_KV_ADDRESS",
+		},
+	}
 	app.Commands = []cli.Command{
 		command.NewGetCommand(),
 		command.NewPutCommand(),
@@ -21,5 +29,4 @@ func main() {
 	}
 
 	app.Run(os.Args)
-
 }
