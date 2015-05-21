@@ -12,13 +12,14 @@ func makeClient(c *cli.Context) (consuloretcd.KeyValueStore, error) {
 	//var client consuloretcd.KeyValueStore
 	clientone := http.Client{}
 	Address := c.GlobalString("address")
+	Port := c.GlobalString("port")
 	if c.Bool("consul") == true {
 		return consuloretcd.NewClient(
 			"consul",
 			consuloretcd.Config{
 				Endpoint: Address,
 				Client:   clientone,
-				Port:     8500,
+				Port:     Port,
 			})
 	}
 	if c.Bool("etcd") == true {
@@ -27,7 +28,7 @@ func makeClient(c *cli.Context) (consuloretcd.KeyValueStore, error) {
 			consuloretcd.Config{
 				Endpoint: Address,
 				Client:   clientone,
-				Port:     8500,
+				Port:     Port,
 			})
 	}
 	return nil, errors.New("Unknown client requested.")
