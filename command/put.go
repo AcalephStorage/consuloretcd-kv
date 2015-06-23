@@ -3,7 +3,7 @@ package command
 import (
 	"fmt"
 	"os"
-
+	"gopkg.in/ashcrow/consuloretcd.v1"
 	"github.com/codegangsta/cli"
 )
 
@@ -37,7 +37,7 @@ func NewPutCommand() cli.Command {
 				os.Exit(1)
 			}
 			value := c.Args()[1]
-			client.PutKey(key, value,consuloretcd-kv.KeyOptions{})
+			client.PutKey(key, value,consuloretcd.KeyOptions{})
 		},
 	}
 }

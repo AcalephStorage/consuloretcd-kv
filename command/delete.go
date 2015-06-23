@@ -3,7 +3,7 @@ package command
 import (
 	"fmt"
 	"os"
-
+	"gopkg.in/ashcrow/consuloretcd.v1"
 	"github.com/codegangsta/cli"
 )
 
@@ -30,7 +30,7 @@ func NewDeleteCommand() cli.Command {
 				os.Exit(1)
 			}
 			key := c.Args()[0]
-			client.DeleteKey(key,consuloretcd-kv.KeyOptions{})
+			client.DeleteKey(key,consuloretcd.KeyOptions{})
 		},
 	}
 }
