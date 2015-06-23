@@ -22,7 +22,7 @@ func main() {
 		},
 		cli.IntFlag{
 			Name:   "port, p",
-			Value: "8500",
+			Value: 8500,
 			Usage:  "the port of the remote endpoint for the cluster",
 			EnvVar: "CONSULORETCD_KV_PORT",
 		},
