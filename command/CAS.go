@@ -36,11 +36,7 @@ func NewCASCommand() cli.Command {
 				os.Exit(1)
 			}
 			value := c.Args()[1]
-			y := key
-			cc, _ := client.GetKey(y)
-			if cc.Exists == false {
-			client.PutKey(key, value)
-			}
+			client.PutKey(key, value, KeyOptions{CASet:0})
 		},
 	}
 }

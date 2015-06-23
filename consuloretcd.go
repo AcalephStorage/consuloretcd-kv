@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/TelanJ/consul-kv-ceph/command"
+	"github.com/AcalephStorage/consuloretcd-kv/command"
 	"github.com/codegangsta/cli"
 	"os"
 )
@@ -25,6 +25,12 @@ func main() {
 			Value: "8500",
 			Usage:  "the port of the remote endpoint for the cluster",
 			EnvVar: "CONSULORETCD_KV_PORT",
+		},
+		cli.StringFlag{
+			Name:   "ttl, t",
+			Value: "",
+			Usage:  "the time to live value of that is expected",
+			EnvVar: "CONSULORETCD_KV_TTL",
 		},
 	}
 	app.Commands = []cli.Command{
