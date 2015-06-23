@@ -38,6 +38,7 @@ func NewPutCommand() cli.Command {
 			}
 			value := c.Args()[1]
 			client.PutKey(key, value,consuloretcd.KeyOptions{})
+			fmt.Fprintln("Added ", key, " ",value)
 		},
 	}
 }
