@@ -30,7 +30,7 @@ func NewDeleteCommand() cli.Command {
 				os.Exit(1)
 			}
 			key := c.Args()[0]
-			client.DeleteKey(key,KeyOptions{})
+			client.DeleteKey(key,consuloretcd.KeyOptions{})
 		},
 	}
 }
