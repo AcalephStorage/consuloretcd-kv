@@ -2,7 +2,7 @@ package command
 
 import (
 	"errors"
-	"github.com/ashcrow/consuloretcd.v1"
+	"gopkg.in/ashcrow/consuloretcd.v1"
 	"github.com/codegangsta/cli"
 	"net/http"
 )
