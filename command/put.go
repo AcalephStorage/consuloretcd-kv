@@ -37,7 +37,7 @@ func NewPutCommand() cli.Command {
 				os.Exit(1)
 			}
 			value := c.Args()[1]
-			client.PutKey(key, value,consuloretcd.KeyOptions{})
+			client.PutKey(key, value,consuloretcd-kv.KeyOptions{})
 		},
 	}
 }

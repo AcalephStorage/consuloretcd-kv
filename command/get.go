@@ -32,8 +32,8 @@ func NewGetCommand() cli.Command {
 
 			key := c.Args()[0]
 
-			client.GetKey(key,consuloretcd.KeyOptions{})
-			fmt.Println(client.GetKey(key,consuloretcd.KeyOptions{}))
+			client.GetKey(key,consuloretcd-kv.KeyOptions{})
+			fmt.Println(client.GetKey(key,consuloretcd-kv.KeyOptions{}))
 		},
 	}
 }
