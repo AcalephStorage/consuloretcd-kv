@@ -12,7 +12,7 @@ func makeClient(c *cli.Context) (consuloretcd.KeyValueStore, error) {
 	//var client consuloretcd.KeyValueStore
 	clientone := http.Client{}
 	Address := c.GlobalString("address")
-	Port := c.GlobalString("port")
+	Port := c.GlobalInt("port")
 	if c.Bool("consul") == true {
 		return consuloretcd.NewClient(
 			"consul",
